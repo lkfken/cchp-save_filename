@@ -2,6 +2,8 @@ require 'cchp/save_filename/version'
 
 module Cchp
   class SaveFilename
+    class InvalidDateError < StandardError
+    end
     attr_accessor :basename, :member_id, :file_type, :directory, :date
 
     def initialize(params={})
@@ -13,7 +15,9 @@ module Cchp
     end
 
     def print_date
-      date.respond_to?(:to_str) ? Date.parse(date) : date
+      date.respond_to?(:to_str) ? Date.parse(date.to_str) : date
+    rescue ArgumentError => ex
+      raise InvalidDateError, [ex.message, date, %[Recommend `%Y%m%d' format']].join(' '), [__FILE__, __LINE__].join(':')
     end
 
     def filename
