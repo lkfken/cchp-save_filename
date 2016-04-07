@@ -20,7 +20,12 @@ Or install it yourself as:
 
 ## Usage
 
-I will write usage instructions here later
+```ruby
+require 'cchp/save_filename'
+filename = Cchp::SaveFilename.new(:basename => 'basename', :member_id => '000123456*01', :directory => './save', :date => Date.parse('20160101'), :file_type => '.pdf')
+puts filename
+# "./save/000123456_01_20160101_basename.pdf"
+```
 
 ## Development
 
